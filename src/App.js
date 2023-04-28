@@ -1,25 +1,38 @@
 import logo from './logo.png';
 import './App.css';
-import {useEffect, useState} from "react";
-import {supabase} from "./infrastructure/api";
+import { Tabs } from 'antd';
+import {WeekMenu} from "./components/week-menu/WeekMenu";
+
+const tabs = [
+    {
+        key: '1',
+        label: `Меню на тиждень`,
+        children: <WeekMenu/>,
+    },
+    {
+        key: '2',
+        label: `Список страв`,
+        children: `Content of Tab Pane 2`,
+    },
+    {
+        key: '3',
+        label: `Список продуктів`,
+        children: `Content of Tab Pane 3`,
+    },
+    {
+        key: '4',
+        label: `Чек продуктів на поточний тиждень`,
+        children: `Content of Tab Pane 3`,
+    },
+];
 
 function App() {
-    const [members, setMembers] = useState('');
-    useEffect( () => {
-        supabase.from("family_member").select().then(({data}) => {
-            console.log("FAMILY MEMBERS", data);
-            setMembers(data);
-        });
-    }, [])
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <h1>Family-m</h1>
-                <h3>Site will be active soon...!</h3>
-                <p>members: {JSON.stringify(members)}</p>
-                <h5>Created by this4you</h5>
+        <div className="app">
+            <header className="app-header">
+                <img src={logo} className="app-logo" alt="logo"/>
             </header>
+            <Tabs defaultActiveKey="1" items={tabs} />
         </div>
     );
 }
