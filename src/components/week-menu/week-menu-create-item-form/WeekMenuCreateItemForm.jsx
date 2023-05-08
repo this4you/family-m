@@ -10,8 +10,8 @@ export const WeekMenuCreateItemForm = ({onAfterSubmit, weekId, weekDayId}) => {
     const [store] = useStore();
     const createDishInWeek = useCreateDishInWeek();
     const onFinish = async (values) => {
-        console.log('Finish:', values);
         const {dish, dayPart, familyMember} = values;
+
         form.resetFields();
 
         await createDishInWeek(weekId, JSON.parse(dish), JSON.parse(dayPart), weekDayId, JSON.parse(familyMember));
@@ -20,7 +20,7 @@ export const WeekMenuCreateItemForm = ({onAfterSubmit, weekId, weekDayId}) => {
     };
 
     return (
-        <Form form={form} name="create-week-dish" layout="vertical" onFinish={onFinish} style={{marginTop: '30px'}}>
+        <Form form={form} name={"create-week-dish" + weekDayId + weekId} layout="vertical" onFinish={onFinish} style={{marginTop: '30px'}}>
             <Form.Item
                 name="dish"
                 rules={[

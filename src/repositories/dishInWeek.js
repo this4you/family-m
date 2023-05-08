@@ -27,7 +27,6 @@ export const createDishInWeek = async (weekId, dishId, dayPartId, weekDayId, fam
 };
 
 export const deleteDishInWeek = async (id) => {
-    debugger
     return await supabase
         .from('dish_in_week')
         .delete()

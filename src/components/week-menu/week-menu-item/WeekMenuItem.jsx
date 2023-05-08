@@ -70,7 +70,7 @@ export const WeekMenuItem = ({dayId, weekId, dayName, data}) => {
                     title="Додати страву"
                     open={isModalOpen}
                     footer={[
-                        <Button form="create-week-dish" key="submit" htmlType="submit">
+                        <Button form={"create-week-dish" + dayId + weekId} key="submit" htmlType="submit">
                             Додати
                         </Button>
                     ]}

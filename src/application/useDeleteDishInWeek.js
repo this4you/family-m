@@ -4,7 +4,6 @@ import {useStore} from "../store";
 export const useDeleteDishInWeek =  () => {
     const [_, dispatch] = useStore();
     return async (dishInWeekId) => {
-        debugger
         await deleteDishInWeek(dishInWeekId);
 
         dispatch({
