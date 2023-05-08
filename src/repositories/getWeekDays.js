@@ -8,7 +8,8 @@ export const getWeekDays = async () => {
 
     const {data} = await supabase
         .from('week_day')
-        .select('*');
+        .select('*')
+        .order('id',  { ascending: true });
 
     weekDays = data;
 
