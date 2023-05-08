@@ -1,9 +1,9 @@
-import {Table, Button} from "antd";
+import {Table, Button, Modal} from "antd";
 import {PlusCircleOutlined} from "@ant-design/icons";
-import {useEffect} from "react";
-import {supabase} from "../../../infrastructure/api";
+import {useState} from "react";
+import {WeekMenuCreateItemForm} from "../week-menu-create-item-form/WeekMenuCreateItemForm";
 
-const columns = [
+const weekMenuItemTableColumns =  [
     {
         title: 'Страва',
         dataIndex: 'dish',
@@ -23,19 +23,45 @@ const columns = [
         title: '',
         dataIndex: '',
         key: 'delete',
-        render: () => <a>Delete</a>,
+        render: () => <button>Delete</button>,
     },
 ];
-export const WeekMenuItem = ({dayId, dayName, data}) => {
+
+export const WeekMenuItem = ({dayId, weekId, dayName, data}) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const hideModal = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <div className="week-menu">
             <div className="week-menu-item">
-                <div style={{display: 'flex', alignItems:'center'}}>
+                <div style={{display: 'flex', alignItems: 'center'}}>
                     <h4>{dayName}</h4>
-                    <Button shape="circle" icon={<PlusCircleOutlined />} size={"small"} style={{marginLeft:'10px'}} />
+                    <Button onClick={showModal} shape="circle" icon={<PlusCircleOutlined/>} size={"small"}
+                            style={{marginLeft: '10px'}}/>
                 </div>
-                <Table size="small" pagination={false} dataSource={data} columns={columns}/>
+                <Table size="small" pagination={false} dataSource={data} columns={weekMenuItemTableColumns}/>
+                <Modal
+                    onCancel={hideModal}
+                    title="Додати страву"
+                    open={isModalOpen}
+                    footer={[
+                        <Button form="create-week-dish" key="submit" htmlType="submit">
+                            Submit
+                        </Button>
+                    ]}
+                >
+                    <WeekMenuCreateItemForm
+                        onAfterSubmit={hideModal}
+                        weekId={weekId}
+                        weekDayId={dayId}
+                    />
+                </Modal>
             </div>
         </div>
     )

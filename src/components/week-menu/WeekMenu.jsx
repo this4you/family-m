@@ -1,24 +1,21 @@
 import './styles.css';
 import {WeekMenuItem} from "./week-menu-item/WeekMenuItem";
 import {useEffect, useState} from "react";
-import {supabase} from "../../infrastructure/api";
+import {getDishInWeek} from "../../repositories/dishInWeek";
+import {getWeekDays} from "../../repositories/getWeekDays";
 
 export const WeekMenu = () => {
     const [weekData, setWeekData] = useState([]);
     const [weekDishesData, setDishesData] = useState([]);
 
     useEffect(() => {
-        supabase
-            .from('dish_in_week')
-            .select(`
-                id,
-                weekDayId, 
-                dish (id, name),
-                day_part (id, name),
-                family_member(id, name)
-            `)
-            .then(({data}) => {
-                console.log(data);
+        getDishInWeek()
+            .then((data) => {
+                if (!data) {
+                    console.log("No week data");
+
+                    return;
+                }
                 setDishesData(data.map(it => {
                     return {
                         id: it.id,
@@ -29,10 +26,14 @@ export const WeekMenu = () => {
                     };
                 }));
             });
-        supabase
-            .from('week_day')
-            .select('*')
-            .then(({data}) => {
+
+        getWeekDays()
+            .then((data) => {
+                if (!data) {
+                    console.log("No week days data");
+
+                    return;
+                }
                 setWeekData(data);
             });
 
@@ -43,6 +44,7 @@ export const WeekMenu = () => {
             {weekData.map(it => <WeekMenuItem
                 key={it.id}
                 dayId={it.id}
+                weekId={1} //TODO should be changed to dynamic
                 dayName={it.name}
                 data={weekDishesData.filter(wdd => wdd.weekDayId === it.id)}
             />)}
