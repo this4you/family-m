@@ -2,6 +2,7 @@ import {Table, Button, Modal} from "antd";
 import {PlusCircleOutlined} from "@ant-design/icons";
 import {useState} from "react";
 import {WeekMenuCreateItemForm} from "../week-menu-create-item-form/WeekMenuCreateItemForm";
+import {useDeleteDishInWeek} from "../../../application/useDeleteDishInWeek";
 
 const weekMenuItemTableColumns =  [
     {
@@ -19,12 +20,14 @@ const weekMenuItemTableColumns =  [
         dataIndex: 'familyMember',
         key: 'familyMember',
     },
-    {
-        title: '',
-        dataIndex: '',
-        key: 'delete',
-        render: () => <button>Delete</button>,
-    },
+    // {
+    //     title: '',
+    //     dataIndex: '',
+    //     key: 'delete',
+    //     render: ({id}) => {
+    //         return (<button onClick={}>Delete</button>)
+    //     },
+    // },
 ];
 
 export const WeekMenuItem = ({dayId, weekId, dayName, data}) => {
@@ -32,10 +35,10 @@ export const WeekMenuItem = ({dayId, weekId, dayName, data}) => {
     const showModal = () => {
         setIsModalOpen(true);
     };
-
     const hideModal = () => {
         setIsModalOpen(false);
     };
+    const deleteDishInWeek = useDeleteDishInWeek();
 
     return (
         <div className="week-menu">
@@ -45,7 +48,23 @@ export const WeekMenuItem = ({dayId, weekId, dayName, data}) => {
                     <Button onClick={showModal} shape="circle" icon={<PlusCircleOutlined/>} size={"small"}
                             style={{marginLeft: '10px'}}/>
                 </div>
-                <Table size="small" pagination={false} dataSource={data} columns={weekMenuItemTableColumns}/>
+                <Table
+                    size="small"
+                    pagination={false}
+                    dataSource={data}
+                    columns={[
+                        ...weekMenuItemTableColumns,
+                        {
+                            title: '',
+                            dataIndex: '',
+                            key: 'delete',
+                            render: ({id}) => {
+                                return (<button onClick={() => deleteDishInWeek(id)}>Delete</button>)
+                            },
+                        },
+                    ]}
+
+                />
                 <Modal
                     onCancel={hideModal}
                     title="Додати страву"

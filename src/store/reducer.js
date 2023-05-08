@@ -37,6 +37,11 @@ export default (state, action) => {
                 ...state,
                 weekDishes: state.weekDishes.concat([action.payload])
             };
+        case 'DELETE_WEEK_DISH':
+            return {
+                ...state,
+                weekDishes: state.weekDishes.filter(it => it.id !== action.payload)
+            };
         default:
             return state;
     }
