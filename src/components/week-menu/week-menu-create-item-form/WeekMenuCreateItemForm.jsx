@@ -1,58 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Form, Select} from "antd";
-import {getFamilyMembers} from "../../../repositories/getFamilyMembers";
-import {getDayParts} from "../../../repositories/getDayParts";
-import {getDishes} from "../../../repositories/getDishes";
-import {createDishInWeek} from "../../../repositories/dishInWeek";
+import {useStore} from "../../../store";
+import {useCreateDishInWeek} from "../../../application/useCreateDishInWeek";
 
 const {Option} = Select;
 
 export const WeekMenuCreateItemForm = ({onAfterSubmit, weekId, weekDayId}) => {
     const [form] = Form.useForm();
-    const [familyMembers, setFamilyMembers] = useState([]);
-    const [dayParts, setDayParts] = useState([]);
-    const [dishes, setDishes] = useState([]);
-
-    useEffect(() => {
-        getFamilyMembers().then(data => {
-            if (!data) {
-                console.log("No family members data");
-            }
-
-            setFamilyMembers(data.map(it => ({
-                value: it.id,
-                name: it.name
-            })));
-        });
-
-        getDayParts().then(data => {
-            if (!data) {
-                console.log("No day parts data");
-            }
-
-            setDayParts(data.map(it => ({
-                value: it.id,
-                name: it.name
-            })));
-        });
-
-        getDishes().then(data => {
-            if (!data) {
-                console.log("No dishes data");
-            }
-
-            setDishes(data.map(it => ({
-                value: it.id,
-                name: it.name
-            })));
-        });
-    }, []);
+    const [store] = useStore();
+    const createDishInWeek = useCreateDishInWeek();
     const onFinish = async (values) => {
         console.log('Finish:', values);
-        const {dishId, dayPartId, familyMemberId} = values;
+        const {dish, dayPart, familyMember} = values;
         form.resetFields();
 
-        await createDishInWeek(weekId, dishId, dayPartId, weekDayId, familyMemberId);
+        await createDishInWeek(weekId, JSON.parse(dish), JSON.parse(dayPart), weekDayId, JSON.parse(familyMember));
 
         onAfterSubmit && onAfterSubmit();
     };
@@ -60,7 +22,7 @@ export const WeekMenuCreateItemForm = ({onAfterSubmit, weekId, weekDayId}) => {
     return (
         <Form form={form} name="create-week-dish" layout="vertical" onFinish={onFinish} style={{marginTop: '30px'}}>
             <Form.Item
-                name="dishId"
+                name="dish"
                 rules={[
                     {
                         required: true,
@@ -73,11 +35,11 @@ export const WeekMenuCreateItemForm = ({onAfterSubmit, weekId, weekDayId}) => {
                     allowClear
                     showSearch
                 >
-                    {dishes.map((it) => <Option value={it.value}> {it.name} </Option>)}
+                    {store.dishes.map((it) => <Option value={JSON.stringify(it.value)}> {it.name} </Option>)}
                 </Select>
             </Form.Item>
             <Form.Item
-                name="dayPartId"
+                name="dayPart"
                 rules={[
                     {
                         required: true,
@@ -90,11 +52,11 @@ export const WeekMenuCreateItemForm = ({onAfterSubmit, weekId, weekDayId}) => {
                     allowClear
                     showSearch
                 >
-                    {dayParts.map((it) => <Option value={it.value}> {it.name} </Option>)}
+                    {store.dayParts.map((it) => <Option value={JSON.stringify(it.value)}> {it.name} </Option>)}
                 </Select>
             </Form.Item>
             <Form.Item
-                name="familyMemberId"
+                name="familyMember"
                 rules={[
                     {
                         required: true,
@@ -107,7 +69,7 @@ export const WeekMenuCreateItemForm = ({onAfterSubmit, weekId, weekDayId}) => {
                     allowClear
                     showSearch
                 >
-                    {familyMembers.map((it) => <Option value={it.value}> {it.name} </Option>)}
+                    {store.familyMembers.map((it) => <Option value={JSON.stringify(it.value)}> {it.name} </Option>)}
                 </Select>
             </Form.Item>
         </Form>

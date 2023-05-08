@@ -1,7 +1,8 @@
 import logo from './logo.png';
 import './App.css';
-import { Tabs } from 'antd';
+import {Tabs} from 'antd';
 import {WeekMenu} from "./components/week-menu/WeekMenu";
+import Store from "./store";
 
 const tabs = [
     {
@@ -28,12 +29,14 @@ const tabs = [
 
 function App() {
     return (
-        <div className="app">
-            <header className="app-header">
-                <img src={logo} className="app-logo" alt="logo"/>
-            </header>
-            <Tabs defaultActiveKey="1" items={tabs} />
-        </div>
+        <Store>
+            <div className="app">
+                <header className="app-header">
+                    <img src={logo} className="app-logo" alt="logo"/>
+                </header>
+                <Tabs defaultActiveKey="1" items={tabs}/>
+            </div>
+        </Store>
     );
 }
 
