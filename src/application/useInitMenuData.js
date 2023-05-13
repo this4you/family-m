@@ -4,6 +4,7 @@ import {useEffect} from "react";
 import {getDayParts} from "../repositories/getDayParts";
 import {getDishes} from "../repositories/getDishes";
 import {getFamilyMembers} from "../repositories/getFamilyMembers";
+import {getProducts} from "../repositories/getProducts";
 
 export const useInitMenuData = () => {
     const [_, dispatch] = useStore();
@@ -68,11 +69,27 @@ export const useInitMenuData = () => {
             }))
         });
     }
+    async function initProducts() {
+        const products = await getProducts();
+
+        if (!products) {
+            console.log("No products data");
+        }
+
+        dispatch({
+            type: 'SET_PRODUCTS',
+            payload: products.map(it => ({
+                value: it,
+                name: it.name
+            }))
+        });
+    }
 
     useEffect(() => {
         initWeekDays();
         initDayParts();
         initDishes();
+        initProducts();
         initFamilyMembers();
     }, [])
 }

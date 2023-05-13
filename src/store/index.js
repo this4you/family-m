@@ -9,6 +9,7 @@ const initialState = {
     dayParts: [],
     weekDays: [],
     familyMembers: [],
+    products: [],
 };
 
 const Store = ({children}) => {

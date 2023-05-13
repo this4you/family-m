@@ -52,6 +52,7 @@ export const WeekMenuItem = ({dayId, weekId, dayName, data}) => {
                     size="small"
                     pagination={false}
                     dataSource={data}
+                    rowKey={record => record.id}
                     columns={[
                         ...weekMenuItemTableColumns,
                         {
@@ -59,7 +60,7 @@ export const WeekMenuItem = ({dayId, weekId, dayName, data}) => {
                             dataIndex: '',
                             key: 'delete',
                             render: ({id}) => {
-                                return (<button onClick={() => deleteDishInWeek(id)}>Delete</button>)
+                                return (<button onClick={() => deleteDishInWeek(id)}>Видалити</button>)
                             },
                         },
                     ]}

@@ -3,6 +3,8 @@ import './App.css';
 import {Tabs} from 'antd';
 import {WeekMenu} from "./components/week-menu/WeekMenu";
 import Store from "./store";
+import {DishTable} from "./components/dish-table/DishTable";
+import {ProductTable} from "./components/product-table/ProductTable";
 
 const tabs = [
     {
@@ -13,12 +15,12 @@ const tabs = [
     {
         key: '2',
         label: `Список страв`,
-        children: `Content of Tab Pane 2`,
+        children: <DishTable/>,
     },
     {
         key: '3',
         label: `Список продуктів`,
-        children: `Content of Tab Pane 3`,
+        children: <ProductTable/>,
     },
     {
         key: '4',
