@@ -1,4 +1,3 @@
-import { deleteDishInWeek} from "../repositories/dishInWeek";
 import {useStore} from "../store";
 import {deleteProduct} from "../repositories/deleteProduct";
 
