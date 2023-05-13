@@ -89,7 +89,7 @@ export const ProductTable = () => {
         {
             title: 'name',
             dataIndex: 'name',
-            width: '25%',
+            width: '50%',
             editable: true,
         },
         {

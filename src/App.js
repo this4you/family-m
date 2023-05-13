@@ -35,6 +35,7 @@ function App() {
             <div className="app">
                 <header className="app-header">
                     <img src={logo} className="app-logo" alt="logo"/>
+                    <h1>Яєчка на сковородочці</h1>
                 </header>
                 <Tabs defaultActiveKey="1" items={tabs}/>
             </div>
