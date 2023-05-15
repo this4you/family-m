@@ -105,7 +105,7 @@ export const ProductTable = () => {
                     marginRight: 8,
                 }}
             >
-              Зберегти
+              Save
             </Typography.Link>
             <Typography.Link
                 onClick={() => deleteRecord(record.value.id)}
@@ -113,15 +113,15 @@ export const ProductTable = () => {
                     marginRight: 8,
                 }}
             >
-                Видалити
+                Delete
             </Typography.Link>
             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Охрана відміна</a>
+              <a>Cancel</a>
             </Popconfirm>
           </span>
                 ) : (
                     <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-                        Треба щось виправити
+                        Edit
                     </Typography.Link>
                 );
             },
