@@ -5,6 +5,7 @@ import {WeekMenu} from "./components/week-menu/WeekMenu";
 import Store from "./store";
 import {DishTable} from "./components/dish-table/DishTable";
 import {ProductTable} from "./components/product-table/ProductTable";
+import {WeekProductList} from "./components/week-product-list/WeekProductList";
 
 const tabs = [
     {
@@ -25,7 +26,7 @@ const tabs = [
     {
         key: '4',
         label: `Чек продуктів на поточний тиждень`,
-        children: `Content of Tab Pane 3`,
+        children: <WeekProductList/>,
     },
 ];
 
