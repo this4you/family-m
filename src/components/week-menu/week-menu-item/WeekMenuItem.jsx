@@ -60,7 +60,7 @@ export const WeekMenuItem = ({dayId, weekId, dayName, data}) => {
                             dataIndex: '',
                             key: 'delete',
                             render: ({id}) => {
-                                return (<button onClick={() => deleteDishInWeek(id)}>Видалити</button>)
+                                return (<Button onClick={() => deleteDishInWeek(id)}>Видалити</Button>)
                             },
                         },
                     ]}

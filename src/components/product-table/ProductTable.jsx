@@ -87,42 +87,44 @@ export const ProductTable = () => {
     };
     const columns = [
         {
-            title: 'name',
+            title: 'Назва продукту',
             dataIndex: 'name',
             width: '50%',
             editable: true,
         },
         {
-            title: 'operation',
+            title: '',
             dataIndex: 'operation',
             render: (_, record) => {
                 const editable = isEditing(record);
                 return editable ? (
                     <span>
-            <Typography.Link
+            <Button
+                type={"primary"}
                 onClick={() => save(record.value.id)}
                 style={{
                     marginRight: 8,
                 }}
             >
-              Save
-            </Typography.Link>
-            <Typography.Link
+              Зберегти
+            </Button>
+            <Button
+
                 onClick={() => deleteRecord(record.value.id)}
                 style={{
                     marginRight: 8,
                 }}
             >
-                Delete
-            </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
-            </Popconfirm>
+                Видалити
+            </Button>
+            <Button onClick={cancel}>
+              <a>Відміна</a>
+            </Button>
           </span>
                 ) : (
-                    <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
-                        Edit
-                    </Typography.Link>
+                    <Button disabled={editingKey !== ''} onClick={() => edit(record)}>
+                        Редагувати
+                    </Button>
                 );
             },
         },
