@@ -19,15 +19,7 @@ const weekMenuItemTableColumns =  [
         title: 'Для кого',
         dataIndex: 'familyMember',
         key: 'familyMember',
-    },
-    // {
-    //     title: '',
-    //     dataIndex: '',
-    //     key: 'delete',
-    //     render: ({id}) => {
-    //         return (<button onClick={}>Delete</button>)
-    //     },
-    // },
+    }
 ];
 
 export const WeekMenuItem = ({dayId, weekId, dayName, data}) => {

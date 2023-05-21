@@ -5,41 +5,8 @@ import {useUpdateProduct} from "../../application/useUpdateProduct";
 import {useDeleteProduct} from "../../application/useDeleteProduct";
 import {PlusCircleOutlined} from "@ant-design/icons";
 import {ProductCreateItemForm} from "./product-table-create-item-form/ProductCreateItemForm";
+import {EditableCell} from "../editable-cell/EditableCell";
 
-const EditableCell = ({
-                          editing,
-                          dataIndex,
-                          title,
-                          inputType,
-                          record,
-                          index,
-                          children,
-                          ...restProps
-                      }) => {
-    const inputNode = inputType === 'number' ? <InputNumber/> : <Input/>;
-    return (
-        <td {...restProps}>
-            {editing ? (
-                <Form.Item
-                    name={dataIndex}
-                    style={{
-                        margin: 0,
-                    }}
-                    rules={[
-                        {
-                            required: true,
-                            message: `Please Input ${title}!`,
-                        },
-                    ]}
-                >
-                    {inputNode}
-                </Form.Item>
-            ) : (
-                children
-            )}
-        </td>
-    );
-};
 export const ProductTable = () => {
     const [store] = useStore();
     const [search, setSearch] = useState('');
@@ -109,7 +76,6 @@ export const ProductTable = () => {
               Зберегти
             </Button>
             <Button
-
                 onClick={() => deleteRecord(record.value.id)}
                 style={{
                     marginRight: 8,
