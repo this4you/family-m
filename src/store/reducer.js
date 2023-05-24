@@ -57,6 +57,11 @@ export default (state, action) => {
                     ...state,
                     products: state.products.filter(it => it.value.id !== action.payload)
                 };
+            case 'DELETE_DISH':
+                return {
+                    ...state,
+                    dishes: state.dishes.filter(it => it.value.id !== action.payload)
+                };
             case 'UPDATE_PRODUCT':
                 return {
                     ...state,
@@ -83,7 +88,7 @@ export default (state, action) => {
                 return state;
         }
     })();
-    console.log('NEW STATE', newState);
+    console.log(`NEW STATE after action ${action.type}`, newState);
 
     return newState;
 };

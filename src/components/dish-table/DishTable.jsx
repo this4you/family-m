@@ -7,6 +7,7 @@ import {ProductCreateItemForm} from "../product-table/product-table-create-item-
 import {EditableCell} from "../editable-cell/EditableCell";
 import {DishProductTable} from "./dish-product-table/DishProductTable";
 import {useUpdateDish} from "../../application/useUpdateDish";
+import {useDeleteDish} from "../../application/useDeleteDish";
 
 
 export const DishTable = () => {
@@ -22,7 +23,7 @@ export const DishTable = () => {
         setIsModalOpen(false);
     };
     const updateDish = useUpdateDish();
-    const deleteProduct = useDeleteProduct();
+    const deleteDish = useDeleteDish();
     const isEditing = (record) => record.value.id === editingKey;
 
     const onSearchHandler = (value) => {
@@ -48,7 +49,7 @@ export const DishTable = () => {
     };
     const deleteRecord = async (key) => {
         try {
-            await deleteProduct(key);
+            await deleteDish(key);
             setEditingKey('');
         } catch (errInfo) {
             console.log('Validate Failed:', errInfo);
