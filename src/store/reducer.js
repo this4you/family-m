@@ -47,6 +47,11 @@ export default (state, action) => {
                     ...state,
                     products: state.products.concat([action.payload])
                 };
+            case 'ADD_DISH':
+                return {
+                    ...state,
+                    dishes: state.dishes.concat([action.payload])
+                };
             case 'DELETE_WEEK_DISH':
                 return {
                     ...state,

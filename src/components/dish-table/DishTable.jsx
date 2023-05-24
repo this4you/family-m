@@ -1,13 +1,13 @@
 import { Button, Form, Input, Modal, Table} from "antd";
 import {useStore} from "../../store";
 import {useState} from "react";
-import {useDeleteProduct} from "../../application/useDeleteProduct";
 import {PlusCircleOutlined} from "@ant-design/icons";
 import {ProductCreateItemForm} from "../product-table/product-table-create-item-form/ProductCreateItemForm";
 import {EditableCell} from "../editable-cell/EditableCell";
 import {DishProductTable} from "./dish-product-table/DishProductTable";
 import {useUpdateDish} from "../../application/useUpdateDish";
 import {useDeleteDish} from "../../application/useDeleteDish";
+import {DishCreateForm} from "./dish-create-form/DishCreateForm";
 
 
 export const DishTable = () => {
@@ -121,7 +121,7 @@ export const DishTable = () => {
     });
     const expandedRowRender = (dish) => {
         return <DishProductTable
-            data={dish.value.product_in_dish.map(it => ({id: it.id, amount: it.amount, name: it.product.name}))}/>;
+            data={dish.value.product_in_dish?.map(it => ({id: it.id, amount: it.amount, name: it.product.name ?? []}))}/>;
     };
     return (
         <>
@@ -162,12 +162,12 @@ export const DishTable = () => {
                 title="Додати нову страву"
                 open={isModalOpen}
                 footer={[
-                    <Button form={"create-product"} key="submit" htmlType="submit">
+                    <Button form={"create-dish"} key="submit" htmlType="submit">
                         Додати
                     </Button>
                 ]}
             >
-                <ProductCreateItemForm
+                <DishCreateForm
                     onAfterSubmit={hideModal}
                 />
             </Modal>
