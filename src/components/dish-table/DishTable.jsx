@@ -1,13 +1,12 @@
-import {Badge, Button, Form, Input, InputNumber, Modal, Space, Table} from "antd";
+import { Button, Form, Input, Modal, Table} from "antd";
 import {useStore} from "../../store";
 import {useState} from "react";
-import {useUpdateProduct} from "../../application/useUpdateProduct";
 import {useDeleteProduct} from "../../application/useDeleteProduct";
 import {PlusCircleOutlined} from "@ant-design/icons";
 import {ProductCreateItemForm} from "../product-table/product-table-create-item-form/ProductCreateItemForm";
-import {ProductTable} from "../product-table/ProductTable";
 import {EditableCell} from "../editable-cell/EditableCell";
 import {DishProductTable} from "./dish-product-table/DishProductTable";
+import {useUpdateDish} from "../../application/useUpdateDish";
 
 
 export const DishTable = () => {
@@ -22,7 +21,7 @@ export const DishTable = () => {
     const hideModal = () => {
         setIsModalOpen(false);
     };
-    const updateProduct = useUpdateProduct();
+    const updateDish = useUpdateDish();
     const deleteProduct = useDeleteProduct();
     const isEditing = (record) => record.value.id === editingKey;
 
@@ -41,7 +40,7 @@ export const DishTable = () => {
     const save = async (key) => {
         try {
             const row = await form.validateFields();
-            await updateProduct(key, row.name);
+            await updateDish(key, row.name);
             setEditingKey('');
         } catch (errInfo) {
             console.log('Validate Failed:', errInfo);

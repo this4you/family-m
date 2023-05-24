@@ -1,13 +1,13 @@
 import {useStore} from "../store";
-import {updateProduct} from "../repositories/updateProduct";
+import {updateDish} from "../repositories/updateDish";
 
-export const useUpdateProduct =  () => {
+export const useUpdateDish =  () => {
     const [_, dispatch] = useStore();
     return async (id, name) => {
-        await updateProduct(id, name);
+        await updateDish(id, name);
 
         dispatch({
-            type: 'UPDATE_PRODUCT',
+            type: 'UPDATE_DISH',
             payload: {
                 id: id,
                 name: name,

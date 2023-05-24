@@ -68,6 +68,17 @@ export default (state, action) => {
                         }
                     })
                 };
+            case 'UPDATE_DISH':
+                return {
+                    ...state,
+                    dishes: state.dishes.map(it => {
+                        if (it.value.id === action.payload.id) {
+                            return {...it, name: action.payload.name}
+                        } else {
+                            return it;
+                        }
+                    })
+                };
             default:
                 return state;
         }
