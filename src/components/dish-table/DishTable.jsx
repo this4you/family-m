@@ -8,6 +8,7 @@ import {DishProductTable} from "./dish-product-table/DishProductTable";
 import {useUpdateDish} from "../../application/useUpdateDish";
 import {useDeleteDish} from "../../application/useDeleteDish";
 import {DishCreateForm} from "./dish-create-form/DishCreateForm";
+import {DishProductAddForm} from "./dish-product-table/dish-product-table-add-form/DishProductAddForm";
 
 
 export const DishTable = () => {
@@ -16,11 +17,20 @@ export const DishTable = () => {
     const [form] = Form.useForm();
     const [editingKey, setEditingKey] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isProductModalOpen, setIsProductModalOpen] = useState(false);
+    const [productModalDishId, setProductModalDishId] = useState(false);
     const showModal = () => {
         setIsModalOpen(true);
     };
     const hideModal = () => {
         setIsModalOpen(false);
+    };
+    const showProductModal = (id) => {
+        setProductModalDishId(id);
+        setIsProductModalOpen(true);
+    };
+    const hideProductModal = () => {
+        setIsProductModalOpen(false);
     };
     const updateDish = useUpdateDish();
     const deleteDish = useDeleteDish();
@@ -96,7 +106,7 @@ export const DishTable = () => {
                         <Button style={{marginRight: 8,}} disabled={editingKey !== ''} onClick={() => edit(record)}>
                             Редагувати
                         </Button>
-                        <Button disabled={editingKey !== ''} onClick={() => edit(record)}>
+                        <Button disabled={editingKey !== ''} onClick={() => showProductModal(record.value.id)}>
                             Додати продукт
                         </Button>
                     </div>
@@ -169,6 +179,21 @@ export const DishTable = () => {
             >
                 <DishCreateForm
                     onAfterSubmit={hideModal}
+                />
+            </Modal>
+            <Modal
+                onCancel={hideProductModal}
+                title="Додати продукт"
+                open={isProductModalOpen}
+                footer={[
+                    <Button form={"create-product-in-dish"} key="submit" htmlType="submit">
+                        Додати
+                    </Button>
+                ]}
+            >
+                <DishProductAddForm
+                    onAfterSubmit={hideProductModal}
+                    dishId={productModalDishId}
                 />
             </Modal>
         </>

@@ -1,7 +1,6 @@
 import {Button, Table} from 'antd';
 
 export const DishProductTable = ({data}) => {
-    console.log('DATA', data);
     const columns = [
         {
             title: 'Назва продукту',

@@ -47,6 +47,32 @@ export default (state, action) => {
                     ...state,
                     products: state.products.concat([action.payload])
                 };
+            case 'ADD_PRODUCT_ID_DISH':
+                return {
+                    ...state,
+                    dishes: state.dishes.map(it => {
+                        if (it.value.id === action.payload.dishId) {
+                            return {
+                                ...it, value: {
+                                    ...it.value,
+                                    product_in_dish: [
+                                        ...it.value.product_in_dish,
+                                        {
+                                            id:  action.payload.id,
+                                            amount: action.payload.amount,
+                                            product: {
+                                                id: action.payload.productId,
+                                                name: state.products.find(it => it.value.id === action.payload.productId)?.name
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        } else {
+                            return it;
+                        }
+                    })
+                };
             case 'ADD_DISH':
                 return {
                     ...state,
