@@ -1,6 +1,8 @@
 import {Button, Table} from 'antd';
+import {useDeleteProductInDish} from "../../../application/useDeleteProductInDish";
 
 export const DishProductTable = ({data}) => {
+    const deleteProductInDish = useDeleteProductInDish();
     const columns = [
         {
             title: 'Назва продукту',
@@ -26,7 +28,7 @@ export const DishProductTable = ({data}) => {
                         dataIndex: '',
                         key: 'delete',
                         render: ({id}) => {
-                            return (<Button onClick={() => console.log(id)}>Видалити</Button>)
+                            return (<Button onClick={() => deleteProductInDish(id)}>Видалити</Button>)
                         },
                     },
                 ]}

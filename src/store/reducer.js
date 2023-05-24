@@ -83,6 +83,19 @@ export default (state, action) => {
                     ...state,
                     weekDishes: state.weekDishes.filter(it => it.id !== action.payload)
                 };
+            case 'DELETE_PRODUCT_IN_DISH':
+                return {
+                    ...state,
+                    dishes: state.dishes.map(it => {
+                        return {
+                            ...it,
+                            value: {
+                                ...it.value,
+                                product_in_dish: it.value.product_in_dish.filter(it => it.id !== action.payload)
+                            }
+                        }
+                    })
+                };
             case 'DELETE_PRODUCT':
                 return {
                     ...state,
