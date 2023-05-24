@@ -16,7 +16,7 @@ const weekMenuItemTableColumns =  [
         key: 'dayPart',
     },
     {
-        title: 'Для кого',
+        title: 'Хто готує',
         dataIndex: 'familyMember',
         key: 'familyMember',
     }

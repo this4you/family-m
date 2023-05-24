@@ -65,7 +65,7 @@ export const WeekMenuCreateItemForm = ({onAfterSubmit, weekId, weekDayId}) => {
                 ]}
             >
                 <Select
-                    placeholder="Вибери для кого"
+                    placeholder="Вибери хто готує"
                     allowClear
                     showSearch
                 >
